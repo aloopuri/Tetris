@@ -20,6 +20,7 @@ public struct TetrominoData {
     public Vector2Int[] cells { get; private set; } // C# property
 
     public void Initialize() {
+        // gets the data for the shape of each tetromino
         this.cells = Data.Cells[this.tetromino];
     }
 }
