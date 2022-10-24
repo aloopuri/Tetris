@@ -35,7 +35,20 @@ public class Piece : MonoBehaviour
             Move(Vector2Int.right);
         }
 
+        if (Input.GetKeyDown(KeyCode.S)) {
+            Move(Vector2Int.down);
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            HardDrop();
+        }
+
         this.board.Set(this);
+    }
+
+    private void HardDrop() {
+        while (Move(Vector2Int.down)) {
+            continue;
+        }
     }
 
     private bool Move(Vector2Int translation) {
