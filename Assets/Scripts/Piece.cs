@@ -76,12 +76,23 @@ public class Piece : MonoBehaviour
     private void Step() {
         this.stepTime = Time.time + this.stepDelay;
         Move(Vector2Int.down);
+
+        if (this.lockTime >= lockDelay) {
+            Lock();
+        }
     }
 
     private void HardDrop() {
         while (Move(Vector2Int.down)) {
             continue;
         }
+
+        Lock();
+    }
+
+    private void Lock() {
+        this.board.Set(this);
+        this.board.SpawnPiece();
     }
 
     private bool Move(Vector2Int translation) {
