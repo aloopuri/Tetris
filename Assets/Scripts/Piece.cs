@@ -79,7 +79,17 @@ public class Piece : MonoBehaviour
     private void Rotate(int direction) {
         this.rotationIndex = Wrap(this.rotationIndex + direction, 0, 4);
 
-        // Loop over cells.Length instead of data.cells as this piece rotates
+        int originalRotation = this.rotationIndex;
+        ApplyRotationMatrix(direction);
+
+        if (!TestWallKicks(this.rotationIndex, direction)) {
+            this.rotationIndex = originalRotation;
+            ApplyRotationMatrix(-direction);     
+        }
+    }
+
+    private void ApplyRotationMatrix(int direction) {
+         // Loop over cells.Length instead of data.cells as this piece rotates
         for (int i = 0; i < this.cells.Length; i++) {
             Vector3 cell = this.cells[i];
             int x, y;
@@ -101,6 +111,30 @@ public class Piece : MonoBehaviour
             
             this.cells[i] = new Vector3Int(x, y, 0);
         }
+    }
+
+    private bool TestWallKicks(int rotationIndex, int rotationDirection) {
+        int wallKickIndex = GetWallKickIndex(rotationIndex, rotationDirection);
+
+        for(int i = 0; i< this.data.wallKicks.GetLength(1); i++) {
+            Vector2Int translation = this.data.wallKicks[wallKickIndex, i];
+            if (Move(translation)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    // This method returns the index position of the rotation type in Data
+    // based on the list in wall kick data table https://tetris.fandom.com/wiki/SRS
+    private int GetWallKickIndex(int rotationIndex, int rotationDirection) {
+        int wallKickIndex = rotationIndex * 2;
+        if (rotationDirection < 0) {
+            wallKickIndex--;
+        }
+
+        return Wrap(wallKickIndex, 0, this.data.wallKicks.GetLength(0));
     }
 
     private int Wrap(int input, int min, int max) {
