@@ -36,7 +36,7 @@ public class Piece : MonoBehaviour
         
     }
 
-    //Handles input .Run every frame.
+    // Handles input. Run every frame.
     private void Update() {
         this.board.Clear(this);
 

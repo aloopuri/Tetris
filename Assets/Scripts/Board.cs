@@ -39,7 +39,28 @@ public class Board : MonoBehaviour
         TetrominoData data = this.tetrominoes[random];
 
         this.activePiece.Initialize(this, spawnPosition, data);
-        Set(this.activePiece);
+
+        if (IsValidPosition(this.activePiece, this.spawnPosition)) {
+            Set(this.activePiece);        
+        }
+        else {
+            GameOver();
+        }
+    }
+
+    // Game resets due to line clear as the board is full
+    // A new piece still spawns and because it cant move it locks and
+    // the game checks for line clears, subsequently clearing the board.
+    private void GameOver() {
+        RectInt bounds = this.Bounds;
+        for (int row = bounds.yMin; row < bounds.yMax; row++) {
+            for (int col = bounds.xMin; col < bounds.xMax; col++) {
+                Vector3Int position = new Vector3Int(col, row, 0);
+                int rand = Random.Range(0, tetrominoes.Length);
+                TileBase tile = tetrominoes[rand].tile;
+                this.tilemap.SetTile(position, tile);
+            }
+        }
     }
 
     // Sets piece on the board
