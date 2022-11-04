@@ -90,9 +90,11 @@ public class Piece : MonoBehaviour
         Lock();
     }
 
+    // TO DO LATER: when game over, check before spawning new piece, after ClearLines()
     private void Lock() {
         this.board.Set(this);
         this.board.ClearLines();
+        // here
         this.board.SpawnPiece();
     }
 
