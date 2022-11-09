@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
+    public Hud hud;
 
     public RectInt Bounds {
         get {
@@ -23,6 +24,7 @@ public class Board : MonoBehaviour
         // tilemap is a child of the game object that board script is attached to
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
+
 
         for (int i=0; i<tetrominoes.Length; i++) {
             this.tetrominoes[i].Initialize();            
@@ -99,16 +101,21 @@ public class Board : MonoBehaviour
     public void ClearLines() {
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;
+        int linesCleared = 0;
 
         while (row < bounds.yMax) {
             if (IsLineFull(row)) {
                 LineClear(row);
+                linesCleared++;
             }
             else {
                 row++;
             }
         }
+
+        hud.UpdateScore(linesCleared);
     }
+    
 
     private bool IsLineFull(int row) {
         RectInt bounds = this.Bounds;
