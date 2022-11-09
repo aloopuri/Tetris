@@ -98,6 +98,7 @@ public class Board : MonoBehaviour
         return true;
     }
 
+    // clears full rows and updates score
     public void ClearLines() {
         RectInt bounds = this.Bounds;
         int row = bounds.yMin;

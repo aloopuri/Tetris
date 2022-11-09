@@ -16,7 +16,6 @@ public class Hud : MonoBehaviour
         
     }
 
-    // clear lines at board.clearlines()
     public void UpdateScore(int lines) {
         if (lines <= 0) {
             return;
