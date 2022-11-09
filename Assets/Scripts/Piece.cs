@@ -83,11 +83,14 @@ public class Piece : MonoBehaviour
     }
 
     private void HardDrop() {
+        int rowsdropped = 0;
         while (Move(Vector2Int.down)) {
+            rowsdropped++;
             continue;
         }
 
         Lock();
+        this.board.AddHardDropScore(rowsdropped);
     }
 
     // TO DO LATER: when game over, check before spawning new piece, after ClearLines()

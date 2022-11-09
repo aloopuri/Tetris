@@ -16,13 +16,21 @@ public class Hud : MonoBehaviour
         
     }
 
-    public void UpdateScore(int lines) {
-        if (lines <= 0) {
+    public void AddLineClearedSCore(int linesCleared) {
+        if (linesCleared <= 0) {
             return;
         }
-        // string temp = currentScore.text;
+        int val = scoreValues[linesCleared - 1];
+        UpdateScore(val);
+    }
+
+    public void AddHardDropScore(int rows) {
+        UpdateScore(rows + 1);
+    }
+
+    private void UpdateScore(int value) {
         int temp = int.Parse(currentScore.text);
-        temp += scoreValues[lines-1];
+        temp += value;
         currentScore.SetText(temp.ToString());
     }
 }

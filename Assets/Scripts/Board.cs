@@ -114,7 +114,11 @@ public class Board : MonoBehaviour
             }
         }
 
-        hud.UpdateScore(linesCleared);
+        hud.AddLineClearedSCore(linesCleared);
+    }
+
+    public void AddHardDropScore(int rows) {
+        hud.AddHardDropScore(rows);
     }
     
 
