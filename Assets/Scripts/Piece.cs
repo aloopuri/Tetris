@@ -18,9 +18,16 @@ public class Piece : MonoBehaviour
     private float stepTime;
     private float lockTime;
 
-    // Controls delay for pieces to continuously move in a directiion
-    private float holdDelay = 0.1f;
-    private float holdTime;
+    // Controls delay for pieces to continuously move in a direction
+    private float horizontalHoldDelay = 0.05f;
+    private float verticalHoldDelay = 0.08f;
+    private float keyDownWaitDelay = 0.12f;
+
+    private float horizontalHoldTime;
+    private float verticalHoldTime;
+    private float keyDownWaitTimer;
+
+    private bool keyHeldDown;
 
     public void Initialize(Board board, Vector3Int position, TetrominoData data) {
         this.board = board;
@@ -29,7 +36,9 @@ public class Piece : MonoBehaviour
         this.rotationIndex = 0;
         this.stepTime = Time.time + this.stepDelay;
         this.lockTime = 0f;
-        this.holdTime = Time.time + this.holdDelay;
+        this.horizontalHoldTime = 0f;
+        this.verticalHoldTime = 0f;
+        this.keyHeldDown = false;
 
         if (this.cells == null) {
             this.cells = new Vector3Int[data.cells.Length];
@@ -47,6 +56,14 @@ public class Piece : MonoBehaviour
 
         this.lockTime += Time.deltaTime;
 
+        // TO DO: ADD DELAY WHEN HELD DOWN OF INDIVIDUAL PRESSES STILL WORK PROPERLY
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.S)) {
+            horizontalHoldTime = 0f;
+            verticalHoldTime = 0f;
+            keyDownWaitTimer = 0f;
+            keyHeldDown = false;
+        }
+
         // Rotation
         if (Input.GetKeyDown(KeyCode.Q)) {
             Rotate(-1);
@@ -57,32 +74,59 @@ public class Piece : MonoBehaviour
 
         // Horizontal movemeent
         if (Input.GetKey(KeyCode.A)) {
-            if (holdTime < holdDelay) {
-                holdTime += Time.deltaTime;
-                return;
+
+            if (keyHeldDown) {
+                if (keyDownWaitTimer < keyDownWaitDelay) {
+                    keyDownWaitTimer += Time.deltaTime;
+                    return;
+                }
+
+                if (horizontalHoldTime < horizontalHoldDelay) {
+                    horizontalHoldTime += Time.deltaTime;
+                    return;
+                }
+                horizontalHoldTime = 0;
             }
-            holdTime = 0;
+            
+            if (!keyHeldDown) {
+                keyHeldDown = true;
+            }
 
             Move(Vector2Int.left);
         }
         else if (Input.GetKey(KeyCode.D)) {
-            if (holdTime < holdDelay) {
-                holdTime += Time.deltaTime;
-                return;
-            }
-            holdTime = 0;
+            if (keyHeldDown) {
+                if (keyDownWaitTimer < keyDownWaitDelay) {
+                    keyDownWaitTimer += Time.deltaTime;
+                    return;
+                }
 
+                if (horizontalHoldTime < horizontalHoldDelay) {
+                    horizontalHoldTime += Time.deltaTime;
+                    return;
+                }
+                horizontalHoldTime = 0;
+            }
+
+            if (!keyHeldDown) {
+                keyHeldDown = true;
+            }
             Move(Vector2Int.right);
         }
 
         // moving down/dropping
         if (Input.GetKey(KeyCode.S)) {
-            if (holdTime < holdDelay) {
-                holdTime += Time.deltaTime;
-                return;
+            if (keyHeldDown) {
+                if (verticalHoldTime < verticalHoldDelay) {
+                    verticalHoldTime += Time.deltaTime;
+                    return;
+                }
+                verticalHoldTime = 0;
             }
-            holdTime = 0;
 
+            if (!keyHeldDown) {
+                keyHeldDown = true;
+            }
             Move(Vector2Int.down);
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
