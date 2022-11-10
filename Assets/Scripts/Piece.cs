@@ -18,6 +18,10 @@ public class Piece : MonoBehaviour
     private float stepTime;
     private float lockTime;
 
+    // Controls delay for pieces to continuously move in a directiion
+    private float holdDelay = 0.1f;
+    private float holdTime;
+
     public void Initialize(Board board, Vector3Int position, TetrominoData data) {
         this.board = board;
         this.position = position;
@@ -25,6 +29,7 @@ public class Piece : MonoBehaviour
         this.rotationIndex = 0;
         this.stepTime = Time.time + this.stepDelay;
         this.lockTime = 0f;
+        this.holdTime = Time.time + this.holdDelay;
 
         if (this.cells == null) {
             this.cells = new Vector3Int[data.cells.Length];
@@ -51,15 +56,33 @@ public class Piece : MonoBehaviour
         }
 
         // Horizontal movemeent
-        if (Input.GetKeyDown(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A)) {
+            if (holdTime < holdDelay) {
+                holdTime += Time.deltaTime;
+                return;
+            }
+            holdTime = 0;
+
             Move(Vector2Int.left);
         }
-        else if (Input.GetKeyDown(KeyCode.D)) {
+        else if (Input.GetKey(KeyCode.D)) {
+            if (holdTime < holdDelay) {
+                holdTime += Time.deltaTime;
+                return;
+            }
+            holdTime = 0;
+
             Move(Vector2Int.right);
         }
 
         // moving down/dropping
-        if (Input.GetKeyDown(KeyCode.S)) {
+        if (Input.GetKey(KeyCode.S)) {
+            if (holdTime < holdDelay) {
+                holdTime += Time.deltaTime;
+                return;
+            }
+            holdTime = 0;
+
             Move(Vector2Int.down);
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
