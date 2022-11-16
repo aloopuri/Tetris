@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   board: {fileID: 408861781}
-  position: {x: 0, y: 0, z: 0}
 --- !u!1 &408861780
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9f87575caeba24abf0e56921972d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hud: {fileID: 1911736754}
+  nextPiece: {fileID: 361098805}
   tetrominoes:
   - tetromino: 0
     tile: {fileID: 11400000, guid: 36ad97d2b9324cf49a6556995da9431f, type: 2}
