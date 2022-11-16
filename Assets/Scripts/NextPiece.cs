@@ -28,6 +28,12 @@ public class NextPiece : MonoBehaviour
         Set(data);        
     }
 
+    public TetrominoData GetNextPiece() {
+        TetrominoData data = this.nextPiece;
+        GeneratePiece();
+        return data;
+    }
+
     private void Set(TetrominoData data) {
         for (int i = 0; i < data.cells.Length; i++) {
             Vector3Int tilePosition = (Vector3Int)data.cells[i] + this.position;

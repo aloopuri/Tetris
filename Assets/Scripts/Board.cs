@@ -39,9 +39,16 @@ public class Board : MonoBehaviour
 
     // Chooses a random tetromino piece
     public void SpawnPiece() {
-        int random = Random.Range(0, this.tetrominoes.Length);
-        TetrominoData data = this.tetrominoes[random];
-        nextPiece.GeneratePiece();
+        TetrominoData data;
+        if (nextPiece.nextPiece.cells == null) {
+            int random = Random.Range(0, this.tetrominoes.Length);
+            data = this.tetrominoes[random];
+            nextPiece.GeneratePiece();
+        }
+        else {
+            data = nextPiece.GetNextPiece();       
+
+        }
 
         this.activePiece.Initialize(this, spawnPosition, data);
 
