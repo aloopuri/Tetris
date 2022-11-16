@@ -24,11 +24,11 @@ public class Hud : MonoBehaviour
         UpdateScore(val);
     }
 
-    public void AddHardDropScore(int rows) {
-        UpdateScore(rows + 1);
-    }
+    // public void AddHardDropScore(int rows) {
+    //     UpdateScore(rows + 1);
+    // }
 
-    private void UpdateScore(int value) {
+    public void UpdateScore(int value) {
         int temp = int.Parse(currentScore.text);
         temp += value;
         currentScore.SetText(temp.ToString());

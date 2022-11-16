@@ -127,7 +127,10 @@ public class Piece : MonoBehaviour
             if (!keyHeldDown) {
                 keyHeldDown = true;
             }
-            Move(Vector2Int.down);
+
+            if (Move(Vector2Int.down)) {
+                this.board.incrementScore();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
             HardDrop();
@@ -157,7 +160,9 @@ public class Piece : MonoBehaviour
         }
 
         Lock();
-        this.board.AddHardDropScore(rowsdropped);
+        if (rowsdropped > 0) {
+            this.board.AddHardDropScore(rowsdropped);
+        }
     }
 
     // TO DO LATER: when game over, check before spawning new piece, after ClearLines()

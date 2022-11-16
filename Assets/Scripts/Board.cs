@@ -128,8 +128,13 @@ public class Board : MonoBehaviour
     }
 
     public void AddHardDropScore(int rows) {
-        hud.AddHardDropScore(rows);
+        hud.UpdateScore(rows + 1);
     }
+
+    public void incrementScore() {
+        hud.UpdateScore(1);
+    }
+    
     
 
     private bool IsLineFull(int row) {
