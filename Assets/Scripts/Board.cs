@@ -8,10 +8,13 @@ public class Board : MonoBehaviour
 {
     public Tilemap tilemap { get; private set;}
     public Piece activePiece { get; private set; }
+    public Hud hud { get; private set; }
+    public NextPiece nextPiece {get; private set; }
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
-    public Hud hud;
+    
+    
 
     public RectInt Bounds {
         get {
@@ -24,6 +27,7 @@ public class Board : MonoBehaviour
         // tilemap is a child of the game object that board script is attached to
         this.tilemap = GetComponentInChildren<Tilemap>();
         this.activePiece = GetComponentInChildren<Piece>();
+        this.hud = GetComponentInChildren<Hud>();
 
 
         for (int i=0; i<tetrominoes.Length; i++) {
