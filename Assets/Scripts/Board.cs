@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public Piece activePiece { get; private set; }
     public Hud hud;
     public NextPiece nextPiece;
+    public HoldPiece holdPiece;
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
@@ -40,7 +41,7 @@ public class Board : MonoBehaviour
     // Chooses a random tetromino piece
     public void SpawnPiece() {
         TetrominoData data;
-        if (nextPiece.nextPiece.cells == null) {
+        if (this.nextPiece.nextPiece.cells == null) {
             int random = Random.Range(0, this.tetrominoes.Length);
             data = this.tetrominoes[random];
             nextPiece.GeneratePiece();
@@ -50,6 +51,19 @@ public class Board : MonoBehaviour
 
         }
 
+        SpawnPiece(data);
+
+        // this.activePiece.Initialize(this, spawnPosition, data);
+
+        // if (IsValidPosition(this.activePiece, this.spawnPosition)) {
+        //     Set(this.activePiece);        
+        // }
+        // else {
+        //     GameOver();
+        // }
+    }
+
+    private void SpawnPiece(TetrominoData data) {
         this.activePiece.Initialize(this, spawnPosition, data);
 
         if (IsValidPosition(this.activePiece, this.spawnPosition)) {
@@ -58,6 +72,19 @@ public class Board : MonoBehaviour
         else {
             GameOver();
         }
+    }
+
+    public void SwapPiece(TetrominoData curPiece) {
+        TetrominoData data;
+        if (!this.holdPiece.Exists()) {
+            data = this.nextPiece.GetNextPiece();
+            this.holdPiece.StorePiece(curPiece); //////////
+            SpawnPiece(data);
+            return;
+        }
+        data = this.holdPiece.GetHoldPiece(curPiece);
+        SpawnPiece(data);
+
     }
 
     // Game resets due to line clear as the board is full

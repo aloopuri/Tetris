@@ -317,6 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hud: {fileID: 1911736754}
   nextPiece: {fileID: 361098805}
+  holdPiece: {fileID: 1949343468}
   tetrominoes:
   - tetromino: 0
     tile: {fileID: 11400000, guid: 36ad97d2b9324cf49a6556995da9431f, type: 2}
@@ -1577,6 +1578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949343467}
   - component: {fileID: 1949343466}
+  - component: {fileID: 1949343468}
   m_Layer: 0
   m_Name: HoldPiece
   m_TagString: Untagged
@@ -1612,6 +1614,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949343468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949343465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f1166a47ddc2c40bafb4fda7d1e1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  board: {fileID: 408861781}
 --- !u!1 &2130096417
 GameObject:
   m_ObjectHideFlags: 0

@@ -136,6 +136,10 @@ public class Piece : MonoBehaviour
             HardDrop();
         }
 
+        if (Input.GetKeyDown(KeyCode.F)) {
+            this.board.SwapPiece(this.data);
+        }
+
         if (Time.time >= this.stepTime) {
             Step();
         }
