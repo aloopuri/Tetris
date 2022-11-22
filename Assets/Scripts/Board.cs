@@ -65,6 +65,9 @@ public class Board : MonoBehaviour
     }
 
     private void SpawnPiece(TetrominoData data) {
+        if (this.holdPiece.Exists() && !this.holdPiece.hasSwapped) {
+            this.holdPiece.RecolourToOriginal();
+        }
         this.activePiece.Initialize(this, spawnPosition, data);
 
         if (IsValidPosition(this.activePiece, this.spawnPosition)) {

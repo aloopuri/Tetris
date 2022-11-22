@@ -5,6 +5,7 @@ public class HoldPiece : MonoBehaviour
 {
     public Tilemap tilemap { get; private set; }
     public Tile grayTile;
+    public Tile pieceTile { get; private set; }
     public Board board;
     public TetrominoData holdPiece {get; private set; }
     public Vector3Int position { get; private set; }
@@ -20,7 +21,9 @@ public class HoldPiece : MonoBehaviour
             Clear();
         }
         this.holdPiece = data;
-        Set(data);
+        this.pieceTile = data.tile;
+        RecolourGray();
+        // Set(data);
     }
 
     public TetrominoData GetHoldPiece(TetrominoData data) {
@@ -36,6 +39,20 @@ public class HoldPiece : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    private void RecolourGray() {
+        for (int i = 0; i < this.holdPiece.cells.Length; i++) {
+            Vector3Int tilePosition = (Vector3Int)this.holdPiece.cells[i] + this.position;
+            this.tilemap.SetTile(tilePosition, grayTile);
+        }
+    }
+
+    public void RecolourToOriginal() {
+        for (int i = 0; i < this.holdPiece.cells.Length; i++) {
+            Vector3Int tilePosition = (Vector3Int)this.holdPiece.cells[i] + this.position;
+            this.tilemap.SetTile(tilePosition, this.pieceTile);
+        }
     }
 
     private void Set(TetrominoData data) {

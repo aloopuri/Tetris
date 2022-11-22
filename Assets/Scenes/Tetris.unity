@@ -1023,7 +1023,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -1356,7 +1356,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -1626,7 +1626,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f1166a47ddc2c40bafb4fda7d1e1eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grayTile: {fileID: 11400000, guid: b43061929eff39642a0cc6f79a7baff8, type: 2}
   board: {fileID: 408861781}
+  hasSwapped: 0
 --- !u!1 &2130096417
 GameObject:
   m_ObjectHideFlags: 0
