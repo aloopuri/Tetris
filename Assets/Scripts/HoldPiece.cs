@@ -4,9 +4,11 @@ using UnityEngine.Tilemaps;
 public class HoldPiece : MonoBehaviour
 {
     public Tilemap tilemap { get; private set; }
+    public Tile grayTile;
     public Board board;
     public TetrominoData holdPiece {get; private set; }
     public Vector3Int position { get; private set; }
+    public bool hasSwapped = false;
 
     private void Awake() {
         this.tilemap = GetComponentInChildren<Tilemap>();
@@ -24,6 +26,7 @@ public class HoldPiece : MonoBehaviour
     public TetrominoData GetHoldPiece(TetrominoData data) {
         TetrominoData temp = this.holdPiece;
         StorePiece(data);
+        this.hasSwapped = true;
         return temp;
 
     }

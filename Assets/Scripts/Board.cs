@@ -51,6 +51,7 @@ public class Board : MonoBehaviour
 
         }
 
+        this.holdPiece.hasSwapped = false;
         SpawnPiece(data);
 
         // this.activePiece.Initialize(this, spawnPosition, data);
@@ -75,15 +76,20 @@ public class Board : MonoBehaviour
     }
 
     public void SwapPiece(TetrominoData curPiece) {
+        if (this.holdPiece.hasSwapped) {
+            return;
+        }
         TetrominoData data;
         if (!this.holdPiece.Exists()) {
             data = this.nextPiece.GetNextPiece();
-            this.holdPiece.StorePiece(curPiece); //////////
+            this.holdPiece.StorePiece(curPiece); 
+            this.holdPiece.hasSwapped = true;
             SpawnPiece(data);
             return;
         }
         data = this.holdPiece.GetHoldPiece(curPiece);
         SpawnPiece(data);
+        this.holdPiece.hasSwapped = true;
 
     }
 
